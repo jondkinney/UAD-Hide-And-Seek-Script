@@ -19,9 +19,9 @@
 ### Downloading the script
 
 1. Download a zip of this repo to your Downloads folder. See below.
-1. With the mouse, double click the "UAD-Hide-And-Seek-Script-master.zip" file to unzip it.
+    ![image](https://user-images.githubusercontent.com/4521/69011321-05953980-092f-11ea-86c7-b93bc43e199c.png)
 
-![image](https://user-images.githubusercontent.com/4521/69011321-05953980-092f-11ea-86c7-b93bc43e199c.png)
+1. With the mouse, double click the "UAD-Hide-And-Seek-Script-master.zip" file in your Downloads folder to unzip it.
 
 ### Running the script
 
