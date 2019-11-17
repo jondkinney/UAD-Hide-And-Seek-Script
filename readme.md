@@ -40,7 +40,7 @@
        4. VST Plugins (Mono)
        5. Audio Units Plugins
 
-    Choose either `1` or `2` or `3` or `4` or `5` by typing that number at the command line and pressing enter.
+    Choose either `1` or `2` or `3` or `4` or `5` by typing that number at the command line and pressing the `enter` key.
 
 **Notes:**
   * I'd recommend making the terminal window large so you can see the logging output and messages helping you along the way. Read all the output.
