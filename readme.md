@@ -26,11 +26,10 @@
 ### Running the script
 
 1. Open `Terminal.app` from the `/Applications/Utilities` folder.
-1. At the terminal, change into the unzipped folder called `UAD-Hide-And-Seek-Script-master` by executing the following command (without quotes):
+1. At the terminal, change into the unzipped folder called `UAD-Hide-And-Seek-Script-master` by executing the following command:
 
        cd ~/Downloads/UAD-Hide-And-Seek-Script-master
-1. Now type: `sudo ruby uad-hide` (without quotes)
-1. Press the `tab` key
+1. Now type: `sudo ruby uad-hide` and press the `tab` key.
 1. If the terminal fills in the rest of the file name so the screen is showing `ruby uad-hide-and-seek.rb` at the command prompt, then you're golden.
 1. Press enter and the script will run, prompting for which folder to operate on:
 
