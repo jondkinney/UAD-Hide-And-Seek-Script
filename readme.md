@@ -2,6 +2,9 @@
 
 ### Before running this script, save a detailed system profile to your Desktop
 
+* The `UADSystemProfile.txt` file is required to be exported to the Desktop for this script to know for which plugins you have valid authorizations.
+  * You should re-export this file each time you upgrade the UAD software as it'll have new plugins in the list that this script can operate on.
+
 ![image](https://user-images.githubusercontent.com/4521/69005051-c391d680-08e1-11ea-8cf7-d85fa5af8fac.png)
 
 ### Usage notes:
@@ -12,9 +15,6 @@
 * The script will optionally delete any existing 'Unused' folders (that the script created) each time it runs. 
   * This is to allow for the script to work well after a fresh install of the UAD software when all the plugins need to be moved to the 'Unused' folder again. 
   * Without deleting the existing 'Unused' folders, the plugins will not move on a re-run of this script, because the script checks to see if a plugin already exists in the destination 'Unused' folder before moving it there.
-* The `UADSystemProfile.txt` file is required to be exported to the Desktop for this script to know for which plugins you have valid authorizations.
-  * You should re-export this file each time you upgrade the UAD software as it'll have new plugins in the list that this script can operate on.
-
 
 ### Downloading the script
 
