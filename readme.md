@@ -32,7 +32,7 @@
 
        cd ~/Downloads/UAD-Hide-And-Seek-Script-master
 1. Now type: `sudo ruby uad-hide` and press the `tab` key.
-1. If the terminal fills in the rest of the file name so the screen is showing `ruby uad-hide-and-seek.rb` at the command prompt, then you're golden.
+1. If the terminal fills in the rest of the file name so the screen is showing `sudo ruby uad-hide-and-seek.rb` at the command prompt, then you're golden.
 1. Press the `enter` key and the script will run, prompting for which folder to operate on:
 
        Which plugins do you want to alter? Type the number and press enter.
