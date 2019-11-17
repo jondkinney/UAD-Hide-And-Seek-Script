@@ -6,11 +6,14 @@
 
 ### Usage notes:
 
-* The plugins that this script alters are located in `/Library` so to move them around we need admin permissions.
+* The UAD plugins that this script alters are located in `/Library` so to move them around we need admin permissions.
   * That's why we have to use `sudo` and type your password.
-* This script only operates on plugins and their directories, it creates the necessary "unused" directories, and moves plugins into them.
-* The script will optionally delete an existing 'Unused' folder before re-running. This is to allow for the script to work well after a fresh install of the UAD software when all the plugins need to be moved to the 'Unused' folder again. Without deleting the existing 'Unused' directory, the plugins will not move because the script checks to see if a plugin already exists in the destination folder before moving it there.
+* This script only operates on UAD plugins and their folders. It creates the necessary 'Unused' folders, and moves plugins from their main folders into the newly created 'Unused' folders.
+* The script will optionally delete any existing 'Unused' folders (that the script created) each time it runs. 
+  * This is to allow for the script to work well after a fresh install of the UAD software when all the plugins need to be moved to the 'Unused' folder again. 
+  * Without deleting the existing 'Unused' folders, the plugins will not move on a re-run of this script, because the script checks to see if a plugin already exists in the destination 'Unused' folder before moving it there.
 * The `UADSystemProfile.txt` file is required to be exported to the Desktop for this script to know for which plugins you have valid authorizations.
+  * You should re-export this file each time you upgrade the UAD software as it'll have new plugins in the list that this script can operate on.
 
 
 ### Downloading the script
