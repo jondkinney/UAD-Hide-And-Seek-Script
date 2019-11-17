@@ -98,11 +98,17 @@ delete_unused = gets
 
 if ['','y'].include?(delete_unused.chomp.downcase) # hitting enter accepts default of 'Y'
   # Remove up old 'Unused' plugin dirs
-  FileUtils.rm_r(UNUSED_PLUGIN_PATH, verbose: true)
+  FileUtils.rm_rf(UNUSED_PLUGIN_PATH, verbose: true)
 end
 
 # Create the path for unused plugins if it doesn't already exist
-FileUtils.mkdir_p(UNUSED_PLUGIN_PATH, verbose: true)
+begin
+  FileUtils.mkdir_p(UNUSED_PLUGIN_PATH, verbose: true)
+rescue Errno::EACCES
+  puts ''
+  puts "Error creating 'Unused' directory: Access to the file system denied. Please run this script with 'sudo'"
+  exit
+end
 puts ''
 
 user_dir = Etc.getlogin
