@@ -45,19 +45,25 @@
 **Notes:**
   * I'd recommend making the terminal window large so you can see the logging output and messages helping you along the way. Read all the output.
   * Also, I highly recommend opening up the folders that are being worked on in the finder so you can see the result of what the script did and verify that both folders exist and they have both the authorized and unauthorized plugins in them that you'd expect.
-  * Remember - nothing magic is going on here. We're just automating the movement of some plugs from their main folder to a folder where the DAW or UAD Console doesn't know how to load them.
+  * Remember - nothing magic is going on here. We're just automating the movement of some plugins from their main folder to a folder where the DAW or UAD Console doesn't know how to load them.
 
 
 #### Reading your authorizations from the UADSystemProfile.txt file
-The script will try to read the UADSystemProfile.txt file from your desktop. If it is unable to do so, it'll prompt you to create that file.
+The script will try to read the `UADSystemProfile.txt` file from your desktop. If it is unable to do so, it'll prompt you to create that file.
 
 #### The 'Move All' test
-If the UADSystemProfile.txt file can be read successfully, then the script asks if you want to try to test moving all of your plugins to the 'Unused' folder. I highly recommend opening up the directories in finder, and then trying this test. The script will attempt to go through the entire UADSystemProfile.txt file parsing the name out of each plugin and moving ALL of them to the 'Unused' folder. If this succeeds, the script will output which 1-5 UAD plugins should remain in the main plugin folder. Plugs like `UAD Console Recall.vst` and `UAD CS-1.vst` aren't authorized or not, they are just part of the UAD system and are required to be in the main plugin folder for things to work properly. If you have extra plugins not in the list, then this script may need to be updated to account for newly released plugins.
+If the `UADSystemProfile.txt` file can be read successfully, then the script asks if you want to try to test moving all of your plugins to the 'Unused' folder. I highly recommend opening up the directories in finder, and then trying this test. The script will attempt to go through the entire `UADSystemProfile.txt` file parsing the name out of each plugin and moving ALL of them to the 'Unused' folder. 
+
+If this succeeds, the script will output which 1 to 5 UAD plugins should remain in the main plugin folder. Plugins like `UAD Console Recall.vst` and `UAD CS-1.vst` aren't authorized or not (and aren't listed in the `UADSystemProfile.txt` so they don't ever move), they are just part of the UAD system and are required to be in the main plugin folder for things to work properly. 
+
+**Note:** If you have extra plugins not in the list that look like actual musical UAD plugins (the newly released Avalon 737, for example), then this script may need to be updated to account for newly released plugins. The prompts attempt to help you alter the script yourself to accomodate those new releases. Alternatively you can create an issue on this repo and I can take a look at updating the script.
 
 #### Doing the actual move
-Once the test is successful, you should do a little cleanup and then re-run it for real. 
+Once the 'Move All' test is successful, you should do a little cleanup and then re-run the script to actually get things situated properly. To clean things up before the re-run:
 
-1. Manually move all the plugins back from the 'Unused' folder to the main folder via drag and drop. **This is important!** Alternatively you can re-install the UAD software entirely to restore the plugins, but that's timeconsuling and a pain.
+1. Manually move all the plugins back from the 'Unused' folder to the main folder via drag and drop. **This is important!**
+  * Alternatively you can re-install the UAD software entirely to restore the plugins, but that's timeconsuling and a pain.
+  * Protip: if you hold down the `Command` when draging the group of plugins from the 'Unused' folder back to the main one, macOS will _move_ the files, instead of copying them. This is faster and cleaner, but optional. Copying back to the main folder will work, too.
 1. Optionally you can manually delete any of the 'Unused' folders that were created (the script will also prompt to automatically delete them each time it's run, and the empty 'Unused' folders will also be recreated by the script as needed, so you don't have to manually delete them if you don't want to).
 1. Re-run the script. 
     * This time just hit enter to accept the default of not running the test (or type 'n' and enter) and the script will only move the _unauthorized_ plugins to the proper 'Unused' folder.
