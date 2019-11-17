@@ -1,5 +1,14 @@
 # UAD Hide and Seek Script
 
+### Motivations
+
+I wrote this script initially to hide the UAD Console plugins from my file system so that when using the Softube Console 1 hardware and loading UAD plugins into the channel strips through [Apollo Central](https://www.softube.com/apollo#/) mode, I could select from just the list that I own. Even when you [hide unauthorized plugins](https://help.uaudio.com/hc/en-us/articles/210897963-Hiding-Plug-Ins-in-Console-2-0) in the UAD Console settings, the Softube Console 1 interface still shows them all since it seems to look at the plugin folder directly, not the hidden settings in the UAD Console.
+
+![image](https://user-images.githubusercontent.com/4521/69012697-3af55380-093e-11ea-9409-cdfabaade3b5.png)
+This screenshot is only showing my authorized plugs!
+
+After creating that first version, I decided I'd extend it to allow for hiding the VST and AAX plugins from Studio One and Pro Tools as well. Studio One has the ability to manage plugins and hide them similarly to the UAD setup, but this script can simplify things a bit (at least in my opinion) by hiding the plugins directly in the same way across all the platforms by manipulating the directories on the file system.
+
 ### Before running this script, save a detailed system profile to your desktop
 
 * The `UADSystemProfile.txt` file is required to be exported to the desktop for this script to know for which plugins you have valid authorizations.
