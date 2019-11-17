@@ -61,7 +61,7 @@ If this succeeds, the script will output which 1 to 5 UAD plugins should remain 
 #### Doing the actual move
 Once the 'Move All' test is successful, you should do a little cleanup and then re-run the script to actually get things situated properly. To clean things up before the re-run:
 
-1. Manually move all the plugins back from the 'Unused' folder to the main folder via drag and drop. **This is important!**
+1. Manually move all the plugins back from the 'Unused' folder to the main folder via drag and drop. **This is important** so that the script can re-run and move only the unauthorized plugins out.
     * Alternatively you can re-install the UAD software entirely to restore the plugins, but that's time consuming.
     * Protip: if you hold down the `Command` key when draging the group of plugins from the 'Unused' folder back to the main one, macOS will _move_ the files, instead of copying them. This is faster and cleaner, but optional. Copying back to the main folder will work just fine.
 1. Optionally you can manually delete any of the 'Unused' folders that were created
