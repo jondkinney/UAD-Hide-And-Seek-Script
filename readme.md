@@ -1,6 +1,6 @@
 # UAD Hide and Seek Script
 
-### Motivations
+## Motivations
 
 #### Apollo Central
 
@@ -31,14 +31,14 @@ After creating that first version, I decided I'd extend it to allow for hiding t
   * This is to allow for the script to work well after a fresh install of the UAD software when all the plugins need to be moved to the 'Unused' folder again. Remember to re-export the `UADSystemProfile.txt` when you upgrade!
   * Without deleting the existing 'Unused' folders, the newly install plugins from a UAD software upgrade will not move properly because the script checks to see if a plugin already exists in the destination 'Unused' folder before moving it there.
 
-### Downloading the script
+## Downloading the script
 
 1. Download a zip of this repo to your Downloads folder. See below.
     ![image](https://user-images.githubusercontent.com/4521/69011535-06c76600-0931-11ea-8d8b-1df3e5faa342.png)
 
 1. With the mouse, double click the "UAD-Hide-And-Seek-Script-master.zip" file in your Downloads folder to unzip it.
 
-### Running the script
+## Running the script
 
 1. Open `Terminal.app` from the `/Applications/Utilities` folder.
 1. At the terminal, change into the unzipped folder called `UAD-Hide-And-Seek-Script-master` by executing the following command:
@@ -63,17 +63,17 @@ After creating that first version, I decided I'd extend it to allow for hiding t
   * Remember - nothing magic is going on here. We're just automating the movement of some plugins from their main folder to a folder where the DAW or UAD Console doesn't know how to load them.
 
 
-#### Reading your authorizations from the exported Detailed System Profile
+### Reading your authorizations from the exported Detailed System Profile
 The script will try to read the `UADSystemProfile.txt` file from your desktop. If it is unable to do so, it'll prompt you to create that file. See the first section of this Readme for tips on how to export that file to your desktop.
 
-#### The 'Move All' test
+### The 'Move All' test
 If the `UADSystemProfile.txt` file can be read successfully, then the script asks if you want to try to test moving all of your plugins to the relevant 'Unused' folders that the script creates. I highly recommend opening up the [plugin folders](https://help.uaudio.com/hc/en-us/articles/210216306-Default-Install-Locations-for-UAD-Plug-Ins) in finder, and then trying this test. The script will attempt to go through the entire `UADSystemProfile.txt` file parsing the name out of each plugin and moving ALL of them to the relevant 'Unused' folders. 
 
 If this succeeds, the script will show a list of between 1 to 5 UAD plugins that should still remain in the main plugin folder. Open up this folder and compare the lists to ensure all the non-system plugins were properly moved. Plugins like the `UAD Console Recall.vst` and `UAD CS-1.vst` aren't authorized or not (and aren't listed in the `UADSystemProfile.txt` file, so they aren't ever moved by this script), they are just part of the UAD system and are required to be in the main plugin folder for things to work properly.
 
 **Note:** If you have extra non-system plugins in the main folder that look like actual musical UAD plugins (the newly released Avalon 737, for example), then this script may need to be updated to account for newly released plugins. The prompts attempt to help you alter the script yourself to accomodate those new releases. Alternatively you can create an issue on this repo and I can take a look at updating the script.
 
-#### Doing the actual move
+### Doing the actual move
 Once the 'Move All' test is successful, you should do a little cleanup and then re-run the script to actually get things situated properly. To clean things up before the re-run:
 
 1. Manually move all the plugins back from the 'Unused' folder to the main folder via drag and drop. **This is important** so that the script can re-run and move only the unauthorized plugins out.
