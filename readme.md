@@ -33,16 +33,14 @@
 1. If the terminal fills in the rest of the file name so the screen is showing `ruby uad-hide-and-seek.rb` at the command prompt, then you're golden.
 1. Press enter and the script will run, prompting for which folder to operate on:
 
-```
-Which plugins do you want to alter? Type the number and press enter.
-1. UAD Console
-2. Pro Tools AAX
-3. VST Plugins
-4. VST Plugins (Mono)
-5. Audio Units Plugins
-```
+       Which plugins do you want to alter? Type the number and press enter.
+       1. UAD Console
+       2. Pro Tools AAX
+       3. VST Plugins
+       4. VST Plugins (Mono)
+       5. Audio Units Plugins
 
-Choose either 1 or 2 or 3 or 4 or 5 by typing that number at the command line and pressing enter.
+    Choose either 1 or 2 or 3 or 4 or 5 by typing that number at the command line and pressing enter.
 
 **Notes:**
   * I'd recommend making the terminal window large so you can see the logging output and messages helping you along the way. Read all the output.
