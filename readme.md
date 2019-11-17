@@ -54,7 +54,7 @@ The script will try to read the `UADSystemProfile.txt` file from your desktop. I
 #### The 'Move All' test
 If the `UADSystemProfile.txt` file can be read successfully, then the script asks if you want to try to test moving all of your plugins to the 'Unused' folder. I highly recommend opening up the directories in finder, and then trying this test. The script will attempt to go through the entire `UADSystemProfile.txt` file parsing the name out of each plugin and moving ALL of them to the 'Unused' folder. 
 
-If this succeeds, the script will output which 1 to 5 UAD plugins should remain in the main plugin folder. Plugins like `UAD Console Recall.vst` and `UAD CS-1.vst` aren't authorized or not (and aren't listed in the `UADSystemProfile.txt` so they don't ever move), they are just part of the UAD system and are required to be in the main plugin folder for things to work properly. 
+If this succeeds, the script will output which 1 to 5 UAD plugins should remain in the main plugin folder. Plugins like `UAD Console Recall.vst` and `UAD CS-1.vst` aren't authorized or not (and aren't listed in the `UADSystemProfile.txt` file, so they aren't ever moved by this script), they are just part of the UAD system and are required to be in the main plugin folder for things to work properly. 
 
 **Note:** If you have extra plugins not in the list that look like actual musical UAD plugins (the newly released Avalon 737, for example), then this script may need to be updated to account for newly released plugins. The prompts attempt to help you alter the script yourself to accomodate those new releases. Alternatively you can create an issue on this repo and I can take a look at updating the script.
 
