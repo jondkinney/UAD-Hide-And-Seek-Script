@@ -91,8 +91,19 @@ PLUGIN_PATH = "#{PARENT_PATH}/#{PLUGIN_DIR}"
 UNUSED_PLUGIN_PATH = "#{PARENT_PATH}/#{UNUSED_PLUGIN_DIR}"
 FILES_NOT_FOUND = []
 
+
+puts ''
+puts "If you just re-installed the UAD software, please delete existing 'Unused' folders. Delete existing 'Unused' folder? (Y/n)"
+delete_unused = gets
+
+if ['','y'].include?(delete_unused.chomp.downcase) # hitting enter accepts default of 'Y'
+  # Remove up old 'Unused' plugin dirs
+  FileUtils.rm_r(UNUSED_PLUGIN_PATH, verbose: true)
+end
+
 # Create the path for unused plugins if it doesn't already exist
-FileUtils.mkdir_p(UNUSED_PLUGIN_PATH)
+FileUtils.mkdir_p(UNUSED_PLUGIN_PATH, verbose: true)
+puts ''
 
 user_dir = Etc.getlogin
 uad_system_profile_file = "/Users/#{user_dir}/Desktop/UADSystemProfile.txt"
@@ -160,7 +171,7 @@ unauthorized_plugs =
     .sort # order the list alphabetically (helped with testing)
 
 
-def move_file(plugs: plugs, retry_move: false)
+def move_file(plugs:, retry_move: false)
   plugs.each do |plug|
     # for the plugins that didn't need to have their name overridden, we
     # don't have a mechanism to tap into their name to add the (m) for mono.
@@ -520,11 +531,20 @@ if FILES_NOT_FOUND.length > 0
   puts "-----------------------------------"
   puts FILES_NOT_FOUND.join("\n")
   puts ''
-  msg = %(To fix these "File not found" errors, add an additional 'when' entry
-  to the case statement. This translates the plugin name from your
-  UADSystemProfile.txt file to what exists in your '#{PLUGIN_PATH}' folder.
-  These changes are usually as simple as removing words like 'EQ' or 'Channel
-  Strip' or 'Amplifier' or 'Compressor' from the end of the name.).squish
+  msg = %(First check that the files listed here actually exist in the main
+  plugin folder they're trying to be moved out of. If they don't exist,
+  re-install the UAD software to restore them, then re-run this script to move
+  them to the 'Unused' folder. If they do, but have slightly differnet names,
+  see the next line about fixing a naming conflict.).squish
+  puts msg
+  puts ''
+
+  msg = %(To fix "File not found" errors when the issue is a naming conflict,
+  add an additional 'when' entry to the case statement. This translates the
+  plugin name from your UADSystemProfile.txt file to what exists in your
+  '#{PLUGIN_PATH}' folder.  These changes are usually as simple as removing
+  words like 'EQ' or 'Channel Strip' or 'Amplifier' or 'Compressor' from the
+  end of the name.).squish
   puts msg
   puts ''
 
