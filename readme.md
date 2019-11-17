@@ -61,7 +61,7 @@ Studio One has the ability to manage plugins and hide them similarly to the UAD 
 
 **Notes:**
   * I'd recommend making the terminal window large so you can see the logging output and messages helping you along the way. Read all the output.
-  * Also, I highly recommend opening up the folders that are being worked on in the finder so you can see the result of what the script did and verify that both folders exist and they have both the authorized and unauthorized plugins in them that you'd expect.
+  * Also, I highly recommend opening up [the folders that are being worked on](https://help.uaudio.com/hc/en-us/articles/210216306-Default-Install-Locations-for-UAD-Plug-Ins) in the finder so you can see the result of what the script did and verify that both folders exist and they have both the authorized and unauthorized plugins in them that you'd expect.
   * Remember - nothing magic is going on here. We're just automating the movement of some plugins from their main folder to a folder where the DAW or UAD Console doesn't know how to load them.
 
 
