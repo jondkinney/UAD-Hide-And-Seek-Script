@@ -11,7 +11,9 @@ This screenshot is only showing my authorized plugins!
 
 #### VST, AAX, AU
 
-After creating that first version, I decided I'd extend it to allow for hiding the VST, AAX, and AU plugins from Studio One and Pro Tools as well (and probably other DAWs if they share the same VST folder setup). Studio One has the ability to manage plugins and hide them similarly to the UAD setup, but this script can simplify things a bit (at least in my opinion) by hiding the plugins directly in the same way across all the platforms by manipulating the directories that the plugins exist within on the file system.
+After creating that first version, I decided I'd extend it to allow for hiding the VST (stereo and momo), AAX, and AU plugins from Studio One and Pro Tools as well. The script probably works for other DAWs if they share the same VST or AU folder setup. But let me know if this isn't working for your DAW and I can try to help extend support.
+
+Studio One has the ability to manage plugins and hide them similarly to the UAD setup, but this script can simplify things a bit (at least in my opinion) by hiding the plugins directly in the same way across all the platforms by manipulating the directories that the plugins exist within on the file system.
 
 ### Before running this script, save a detailed system profile to your desktop
 
