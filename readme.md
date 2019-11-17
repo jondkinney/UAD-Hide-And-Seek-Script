@@ -54,7 +54,7 @@
 The script will try to read the `UADSystemProfile.txt` file from your desktop. If it is unable to do so, it'll prompt you to create that file. See the first section of this Readme for tips on how to export that file to your desktop.
 
 #### The 'Move All' test
-If the `UADSystemProfile.txt` file can be read successfully, then the script asks if you want to try to test moving all of your plugins to the 'Unused' folder. I highly recommend opening up the directories in finder, and then trying this test. The script will attempt to go through the entire `UADSystemProfile.txt` file parsing the name out of each plugin and moving ALL of them to the 'Unused' folder. 
+If the `UADSystemProfile.txt` file can be read successfully, then the script asks if you want to try to test moving all of your plugins to the 'Unused' folder. I highly recommend opening up the [plugin folders](https://help.uaudio.com/hc/en-us/articles/210216306-Default-Install-Locations-for-UAD-Plug-Ins) in finder, and then trying this test. The script will attempt to go through the entire `UADSystemProfile.txt` file parsing the name out of each plugin and moving ALL of them to the 'Unused' folder. 
 
 If this succeeds, the script will output which 1 to 5 UAD plugins should remain in the main plugin folder. Plugins like the `UAD Console Recall.vst` and `UAD CS-1.vst` aren't authorized or not (and aren't listed in the `UADSystemProfile.txt` file, so they aren't ever moved by this script), they are just part of the UAD system and are required to be in the main plugin folder for things to work properly. 
 
