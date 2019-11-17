@@ -15,7 +15,7 @@
   * That's why we have to use `sudo` and type your password.
 * This script only operates on UAD plugins and their folders. It creates the necessary 'Unused' folders, and moves plugins from their main folders into the newly created 'Unused' folders.
 * The script will optionally delete any existing 'Unused' folders (that the script created) each time it runs. 
-  * This is to allow for the script to work well after a fresh install of the UAD software when all the plugins need to be moved to the 'Unused' folder again. 
+  * This is to allow for the script to work well after a fresh install of the UAD software when all the plugins need to be moved to the 'Unused' folder again. Remember to re-export the `UADSystemProfile.txt` when you upgrade!
   * Without deleting the existing 'Unused' folders, the plugins will not move on a re-run of this script, because the script checks to see if a plugin already exists in the destination 'Unused' folder before moving it there.
 
 ### Downloading the script
