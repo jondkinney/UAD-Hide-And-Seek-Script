@@ -5,7 +5,7 @@
 * The `UADSystemProfile.txt` file is required to be exported to the desktop for this script to know for which plugins you have valid authorizations.
   * You should re-export this file each time you upgrade the UAD software as it'll have new plugins in the list that this script can operate on.
 
-![image](https://user-images.githubusercontent.com/4521/69005051-c391d680-08e1-11ea-8cf7-d85fa5af8fac.png)
+       ![image](https://user-images.githubusercontent.com/4521/69005051-c391d680-08e1-11ea-8cf7-d85fa5af8fac.png)
 
 ### Usage notes:
 
