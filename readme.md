@@ -6,7 +6,7 @@
 
     ![image](https://user-images.githubusercontent.com/4521/69005051-c391d680-08e1-11ea-8cf7-d85fa5af8fac.png)
     
-    Note: You should re-export this file each time you upgrade the UAD software as it'll have new plugins in the list that this script can operate on.
+    **Note:** You should re-export this file each time you upgrade the UAD software as it'll have new plugins in the list that this script can operate on.
 
 
 ### Usage notes:
