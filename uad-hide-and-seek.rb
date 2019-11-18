@@ -19,6 +19,14 @@ class String
   end
 end
 
+class Array
+  def get_plugin_name
+    self
+      .map{|a| a.split(":").first} # get the plugin name without the colon by splitting the string at the colon and taking the first half of the string
+      .map{|a| "#{a}.#{PLUGIN_EXT}"} # add the .vst extension to the plugin name which is recgonized as a folder on macOS
+  end
+end
+
 puts "Which plugins do you want to alter? Type the number and press enter."
 puts "1. UAD Console"
 puts "2. Pro Tools AAX"
@@ -93,48 +101,47 @@ FILES_NOT_FOUND = []
 
 
 puts ''
-puts "If you just re-installed the UAD software, please delete existing 'Unused' folders. Delete existing 'Unused' folder? (Y/n)"
+puts "If you just re-installed the UAD software, please delete existing 'Unused' folders. Delete existing 'Unused' folder? (N/y)"
 delete_unused = gets
 
-if ['','y'].include?(delete_unused.chomp.downcase) # hitting enter accepts default of 'Y'
+puts '' unless delete_unused.chomp == '' # add linebreak if typing 'n'
+
+if ['y'].include?(delete_unused.chomp.downcase) # hitting enter accepts default of 'N'
+  puts ''
   # Remove up old 'Unused' plugin dirs
   FileUtils.rm_rf(UNUSED_PLUGIN_PATH, verbose: true)
+  removed_existing_unused_folder = true
+else
+  removed_existing_unused_folder = false
 end
 
 # Create the path for unused plugins if it doesn't already exist
 begin
-  FileUtils.mkdir_p(UNUSED_PLUGIN_PATH, verbose: true)
+  FileUtils.mkdir_p(UNUSED_PLUGIN_PATH, verbose: removed_existing_unused_folder)
+  puts '' if removed_existing_unused_folder
 rescue Errno::EACCES
   puts ''
   puts "Error creating 'Unused' directory: Access to the file system denied. Please run this script with 'sudo'"
   exit
 end
-puts ''
 
 user_dir = Etc.getlogin
 uad_system_profile_file = "/Users/#{user_dir}/Desktop/UADSystemProfile.txt"
 
 puts "!!!!! Reading UAD System Profile file from: #{uad_system_profile_file}..."
-puts ''
 
 unless File.file?(uad_system_profile_file)
   puts ">>>>> 'UADSystemProfile.txt' file not found on desktop."
 
   msg = %(>>>>> Please click 'Save Detailed System Profile' from the UAD
-  Control Panel app's "System Info" tab and save the file to your desktop,
-  then re-run this script.).squish
+  Control Panel app 'System Info' tab and save the file to your desktop, then
+  re-run this script.).squish
   puts msg
 
   exit
 end
 
-
-# Open UADSystemProfile.txt file, read it into memory, and close the file
-file_handle = open uad_system_profile_file
-content = file_handle.read
-file_handle.close
-
-
+puts ''
 msg = %(If this is your first time using this script OR you upgraded to a new
 version of the UAD Software and it contains new plugins, it's recommended to
 re-export your UADSystemProfile.txt file, and run the 'Move All' test.).squish
@@ -146,7 +153,7 @@ plugins that this script doesn't know about.).squish
 puts msg
 puts ''
 
-puts "More output will guide you once the test is finished. Run test now? (N/y)"
+puts "More output will guide you once the test is finished. Run 'Move All' test now? (N/y)"
 
 user_input = gets # prompt user for 'Move All' test.
 
@@ -156,7 +163,7 @@ else
   TESTING = true
 end
 
-puts '' unless user_input.chomp == '' # avoid unsightly extra line break if accepting the default by hitting enter without typing 'n'
+puts '' unless user_input.chomp == '' # add linebreak if typing 'n'
 
 if TESTING
   puts ">>>>> 'Move All' test initiated."
@@ -164,20 +171,34 @@ else
   puts ">>>>> Skipping 'Move All' test."
 end
 
-puts "!!!!! Beginning to move #{TESTING == true ? 'ALL KNOWN' : 'unauthorized'} plugins to '#{UNUSED_PLUGIN_PATH}'"
-puts ''
+# Open UADSystemProfile.txt file, read it into memory, and close the file
+file_handle = open uad_system_profile_file
+content = file_handle.read
+file_handle.close
 
-unauthorized_plugs =
+plugin_array_with_authorizations =
   content
     .split("UAD-2 Plug-in Authorizations").last.strip # Get the content of the UAD System Profile text dump AFTER the "UAD-2 Plug-in Authorizations" heading (this is the list of plugins) and strip the whitespace characters from the front and back of the multi-line string
     .split("\r\n") # split the string into an array on each newline
-    .select{|a| a.match(/.*#{TESTING == true ? '' : 'Demo'}.*/)} # only select the plugins that are NOT authorized, which is indicated by having "Demo" after a colon, like so - "UAD Putnam Microphone Collection: Demo not started"
-    .map{|a| a.split(":").first} # get the plugin name without the colon by splitting the string at the colon and taking the first half of the string
-    .map{|a| "#{a}.#{PLUGIN_EXT}"} # add the .vst extension to the plugin name which is recgonized as a folder on macOS
-    .sort # order the list alphabetically (helped with testing)
 
+all_plugs =
+  plugin_array_with_authorizations
+    .get_plugin_name
 
-def move_file(plugs:, retry_move: false)
+authorized_plugs =
+  plugin_array_with_authorizations
+    .select{|a| a.match(/.*Authorized.*/)} # only select the plugins that are AUTHORIZED, which is indicated by having "Authorized" after a colon, like so - "UAD Teletronix LA-2A Legacy Leveler: Authorized for all devices"
+    .get_plugin_name
+
+def move_plugs(plugs:, move_to:, retry_move: false)
+  if move_to == 'unused'
+    plugin_path_target = PLUGIN_PATH
+    plugin_path_destination = UNUSED_PLUGIN_PATH
+  else
+    plugin_path_target = UNUSED_PLUGIN_PATH
+    plugin_path_destination = PLUGIN_PATH
+  end
+
   plugs.each do |plug|
     # for the plugins that didn't need to have their name overridden, we
     # don't have a mechanism to tap into their name to add the (m) for mono.
@@ -186,30 +207,38 @@ def move_file(plugs:, retry_move: false)
 
     # Check if the plugin was already moved. Some collections include plugs
     # that can also be purchased one-off, so we need to account for that
-    if File.exist?("#{UNUSED_PLUGIN_PATH}/#{plug}")
-      puts "#{plug}".fix(55,'.') + " exists in '#{UNUSED_PLUGIN_DIR}' folder. Skipping..."
+    if File.exist?("#{plugin_path_destination}/#{plug}")
+      puts "#{plug.fix(55,'.')} exists in '#{plugin_path_destination}' Skipping..."
       next # display the warning, but don't attempt to move it again.
     end
 
     begin
       # Do the move (which is really a rename of the file in unix)
-      FileUtils.mv("#{PLUGIN_PATH}/#{plug}", "#{UNUSED_PLUGIN_PATH}")
-      puts "#{plug}".fix(55,'.') + " #{TESTING == true ? 'moved' : 'is unauthorized. Moved'} to '#{UNUSED_PLUGIN_DIR}' folder."
+      FileUtils.mv("#{plugin_path_target}/#{plug}", "#{plugin_path_destination}")
+
+      if TESTING || move_to == 'unused'
+        puts "#{plug.fix(55,'.')}  moved to '#{plugin_path_destination}'"
+      else
+        puts "#{plug.fix(55,'.')} is authorized. Moved to '#{plugin_path_destination}'"
+      end
 
       FILES_NOT_FOUND.delete(plug) if retry_move # if the retry worked, remove the plugin from the not found list
+    rescue Errno::EACCES
+      puts "Error moving file #{plug}: Access to the file system denied. Please run this script with 'sudo'"
+      exit
     rescue Errno::ENOENT
       if PLUGIN_APPEND == '(m)'
-        move_file(plugs: [plug], retry_move: true) and return unless retry_move
+        move_plugs(plugs: [plug], move_to: move_to, retry_move: true) and return unless retry_move
       end
 
       # Add the not found file to our FILES_NOT_FOUND array to report on later
       FILES_NOT_FOUND << "#{PLUGIN_PATH}/#{plug}"
-      puts "#{plug}".fix(55,'.') + " File not found: #{PLUGIN_PATH}/#{plug}"
+      puts "#{plug.fix(55,'.')} File not found: #{PLUGIN_PATH}/#{plug}"
     end
   end
 end
 
-unauthorized_plugs.each do |plug|
+def plug_case_statement(plug)
   plugs = []
 
   # Fix naming inconsistencies (I didn't think this list was going to be this big!)
@@ -323,6 +352,8 @@ unauthorized_plugs.each do |plug|
   when /UAD Neve 88RS Channel Strip Collection.#{PLUGIN_EXT}/
     plugs << "UAD Neve 88RS#{PLUGIN_APPEND}.#{PLUGIN_EXT}"
     plugs << "UAD Neve 88RS Legacy#{PLUGIN_APPEND}.#{PLUGIN_EXT}"
+  when /UAD Neve 88RS Legacy Channel Strip.#{PLUGIN_EXT}/
+    plugs << "UAD Neve 88RS Legacy#{PLUGIN_APPEND}.#{PLUGIN_EXT}"
   when /UAD OTO Biscuit 8-bit Filter Effects.#{PLUGIN_EXT}/
     plugs << "UAD OTO Biscuit 8-bit Effects#{PLUGIN_APPEND}.#{PLUGIN_EXT}"
   when /UAD Ocean Way Microphone Collection.#{PLUGIN_EXT}/
@@ -422,8 +453,6 @@ unauthorized_plugs.each do |plug|
   when /UAD Neve 33609 Compressor.#{PLUGIN_EXT}/
     plugs << "UAD Neve 33609#{PLUGIN_APPEND}.#{PLUGIN_EXT}"
     plugs << "UAD Neve 33609SE#{PLUGIN_APPEND}.#{PLUGIN_EXT}"
-  when /UAD Neve 88RS Legacy Channel Strip.#{PLUGIN_EXT}/
-    plugs << "UAD Neve 88RS Legacy#{PLUGIN_APPEND}.#{PLUGIN_EXT}"
   when /UAD Ocean Way Studios Room Modeler.#{PLUGIN_EXT}/
     plugs << "UAD Ocean Way Studios#{PLUGIN_APPEND}.#{PLUGIN_EXT}"
   when /UAD Precision K-Stereo Ambience Recovery.#{PLUGIN_EXT}/
@@ -493,41 +522,80 @@ unauthorized_plugs.each do |plug|
     # Keep the name the same, they didn't change it between the name in the
     # UADSystemProfile.txt file and the plugin in the plugins folder.
     plugs << plug
+    plugs
   end
 
-  # do the actual work to move the file(s)
-  move_file(plugs: plugs)
+  plugs
 end
 
-if TESTING == true
+puts "!!!!! Moving all KNOWN plugins to '#{UNUSED_PLUGIN_PATH}'"
+puts ''
+
+# Move all plugins to the 'Unused' folder
+all_plugs.each do |plug|
+  move_plugs(plugs: plug_case_statement(plug), move_to: 'unused')
+end
+
+unless TESTING
   puts ''
-  puts "Finished moving ALL KNOWN plugins to '#{UNUSED_PLUGIN_PATH}'"
+  puts "!!!!! Moving AUTHORIZED plugins to '#{PLUGIN_PATH}'"
+  puts ''
+end
+
+# Move explicitly authorized plugins back to the default plugin location. It's
+# important to move all plugins out of the default folder, then move only the
+# authorized plugins back in. This is because if you own a one-off plugin but
+# not a separate bundle that the plugin is contained within, you would
+# accidentally end up with plugins you actually own moving to the 'Unused'
+# folder because they're contained within a bundle that you don't own.
+authorized_plugs.each do |plug|
+  move_plugs(plugs: plug_case_statement(plug), move_to: 'default') unless TESTING
+end
+
+unless TESTING
+  puts ''
+  puts "#{authorized_plugs.count} plugins are authorized for use."
+end
+
+if TESTING
+  puts ''
+  puts "Finished moving all KNOWN plugins to '#{UNUSED_PLUGIN_PATH}'"
 
   puts ''
-  puts "Your '#{PLUGIN_PATH}' folder should only contain the following required stock UAD plugins:"
+  puts "Your '#{PLUGIN_PATH}' folder should ONLY contain the following required UAD system plugins:"
   puts ''
 
   puts REMAINING_FILE_LIST
 
   puts ''
-  msg = %(If it contains additional plugins, please update this script to be
-  aware of the newly released plugins and then re-run it until the list
-  matches.).squish
+  msg = %(If it contains additional UAD plugins, please ensure you have the
+  latest UADSystemProfile.txt exported to your desktop and re-run the 'Move
+  All' test.).squish
   puts msg
   puts ''
 
-  msg = %(Once the 'Move All' test is successful in moving all non-stock
-  plugins without any "File not found" errors, manually open the 'Unused'
-  plugins folder, drag all plugins back to the regular plugin folder, and
-  re-run this script to move only your unauthorized plugins to the 'Unused'
-  folder by choosing 'N' when prompted to run the 'Move All' test.).squish
+  msg = %(If non-system plugins (newly released musical plugins, for example)
+  still remain after exporting the latest UADSystemProfile.txt file, update
+  this script's case statement to be aware of the differences between the
+  plugin names listed in the UADSystemProfile.txt file and the the newly
+  released plugins that exist in the default plugin folder. Then re-run this
+  script's 'Move All' test until the list matches, leaving only required system
+  plugins in the main plugin folder.).squish
+  puts msg
+  puts ''
+
+  msg = %(Once the 'Move All' test is successful in moving all non-system
+  plugins without any "File not found" errors, re-run this script to move only
+  your authorized plugins to the default folder. When prompted to run the 'Move
+  All' test, hit enter to accept the default (or type 'n' and press enter) to
+  skip the 'Move All' test.).squish
   puts msg
   puts ''
 
   msg = %(Alternatively, if you aren't able to update the script, you can still
   run it and then manually manage the remaining newly released plugins by
   moving the plugin files between the regular and 'Unused' plugin folders
-  referenced in this script.).squish
+  referenced above.).squish
   puts msg
 end
 
@@ -558,13 +626,6 @@ if FILES_NOT_FOUND.length > 0
   the Avalon VT-737sp was released, I had to add translations for it to the end of
   the case statement after the UAD dbx 160 lines that looked like this:).squish
   puts msg
-  puts ''
-
-  puts %(when /UAD dbx 160 Compressor.\#{PLUGIN_EXT}/
-  plugs << "UAD dbx 160\#{PLUGIN_APPEND}.\#{PLUGIN_EXT}")
-  puts ''
-
-  puts 'I added these Avalon lines below the dbx lines shown above.'
   puts ''
 
   msg = %(when /UAD UAD Avalon VT-737sp Channel Strip.\#{PLUGIN_EXT}/
