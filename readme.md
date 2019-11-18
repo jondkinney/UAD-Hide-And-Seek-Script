@@ -31,7 +31,7 @@ Studio One has the ability to manage plugins and hide them similarly to the UAD 
 * This script only operates on UAD plugins and their folders. It creates the necessary 'Unused' folders, and moves plugins from their main folders into the newly created 'Unused' folders.
 * The script will optionally delete any existing 'Unused' folders (that the script created) each time it runs. 
   * This is to allow for the script to work well after a fresh install of the UAD software when all the plugins need to be moved to the 'Unused' folder again. Remember to re-export the `UADSystemProfile.txt` when you upgrade!
-  * Without deleting the existing 'Unused' folders, the newly install plugins from a UAD software upgrade will not move properly because the script checks to see if a plugin already exists in the destination 'Unused' folder before moving it there.
+  * Without deleting the existing 'Unused' folders, the newly installed plugins from a UAD software upgrade will not move properly because the script checks to see if a plugin already exists in the destination 'Unused' folder before moving it there.
 
 ## Downloading the script
 
@@ -71,19 +71,14 @@ The script will try to read the `UADSystemProfile.txt` file from your desktop. I
 ### The 'Move All' test
 If the `UADSystemProfile.txt` file can be read successfully, then the script asks if you want to try to test moving all of your plugins to the relevant 'Unused' folders that the script creates. I highly recommend opening up the [plugin folders](https://help.uaudio.com/hc/en-us/articles/210216306-Default-Install-Locations-for-UAD-Plug-Ins) in finder, and then trying this test. The script will attempt to go through the entire `UADSystemProfile.txt` file parsing the name out of each plugin and moving ALL of them to the relevant 'Unused' folders. 
 
-If this succeeds, the script will show a list of between 1 to 5 UAD plugins that should still remain in the main plugin folder. Open up this folder and compare the list output to the terminal with the plugins in the main folder to ensure all the non-system plugins were properly moved. Plugins like the `UAD Console Recall.vst` and `UAD CS-1.vst` aren't authorized or not (and aren't listed in the `UADSystemProfile.txt` file, so they aren't ever moved by this script), they are just part of the UAD system and are required to be in the main plugin folder for things to work properly.
+If this succeeds, the script will show a list of between 1 to 5 UAD plugins that should still remain in the main plugin folder. Open up this folder and compare the list shown in the terminal with the plugins in the main folder to ensure all the non-system plugins were properly moved. Plugins like the `UAD Console Recall.vst` and `UAD CS-1.vst` aren't authorized or not (and aren't listed in the `UADSystemProfile.txt` file, so they aren't ever moved by this script), they are just part of the UAD system and are required to be in the main plugin folder for things to work properly.
 
 **Note:** If you have extra non-system plugins in the main folder that look like actual musical UAD plugins (the newly released Avalon 737, for example), then this script may need to be updated to account for newly released plugins. The prompts attempt to help you alter the script yourself to accomodate those new releases. Alternatively you can create an issue on this repo and I can take a look at updating the script.
 
 ### Doing the actual move
-Once the 'Move All' test is successful, you should do a little cleanup and then re-run the script to actually get things situated properly. To clean things up before the re-run:
+Once the 'Move All' test is successful and your main plugin directory is left with only UAD system plugins, re-run the script skipping the 'Move All' test to move your authorized plugins back to the main directory.
 
-1. Manually move all the plugins back from the 'Unused' folder to the [main folder](https://help.uaudio.com/hc/en-us/articles/210216306-Default-Install-Locations-for-UAD-Plug-Ins) via drag and drop. **This is important** so that the script can re-run and move only the unauthorized plugins out.
-    * Alternatively you can re-install the UAD software entirely to restore the plugins, but that's time consuming.
-    * Protip: if you hold down the `Command` key when draging the group of plugins from the 'Unused' folder back to the main one, macOS will _move_ the files, instead of copying them. This is faster and cleaner, but optional. Copying back to the main folder will work just fine.
-1. Optionally you can manually delete any of the 'Unused' folders that were created.
-    * The script will also prompt to automatically delete the 'Unused' folders that is has created each time the script is run. Empty 'Unused' folders will also be recreated by the script as needed, so you don't have to manually create or delete them if you don't want to. However, if you like control over what is deleted, go ahead and perform this action manually.
-1. Re-run the script. 
-    * This time just hit enter to accept the default of not running the test (or type 'n' and enter) and the script will only move the _unauthorized_ plugins to the proper 'Unused' folder.
+Re-run the script for each plugin type you want to alter!
 
-Re-run the script for each folder you want to alter!
+### Troubleshooting
+If you think something got messed up, you can always re-install the UAD software entirely to restore the plugin folders then try to run this script again. If you're stuck, file an issue on this repo and I'll try to help.
