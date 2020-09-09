@@ -490,8 +490,6 @@ def plug_case_statement(plug)
     plugs << "UAD Teletronix LA-2#{PLUGIN_APPEND}.#{PLUGIN_EXT}"
     plugs << "UAD Teletronix LA-2A Gray#{PLUGIN_APPEND}.#{PLUGIN_EXT}"
     plugs << "UAD Teletronix LA-2A Silver#{PLUGIN_APPEND}.#{PLUGIN_EXT}"
-  when /UAD Teletronix LA-3A Leveler.#{PLUGIN_EXT}/
-    plugs << "UAD LA3A#{PLUGIN_APPEND}.#{PLUGIN_EXT}"
   when /UAD UA 1176 Limiter Collection.#{PLUGIN_EXT}/
     plugs << "UAD UA 1176 Rev A#{PLUGIN_APPEND}.#{PLUGIN_EXT}"
     plugs << "UAD UA 1176LN Rev E#{PLUGIN_APPEND}.#{PLUGIN_EXT}"
@@ -515,6 +513,8 @@ def plug_case_statement(plug)
   when /UAD Neve 1084 Preamp and EQ.#{PLUGIN_EXT}/
     plugs << "UAD Neve 1084#{PLUGIN_APPEND}.#{PLUGIN_EXT}/"
   when /UAD Teletronix LA-3A Audio Leveler.#{PLUGIN_EXT}/
+    plugs << "UAD Teletronix LA-3A#{PLUGIN_APPEND}.#{PLUGIN_EXT}/"
+  when /UAD Teletronix LA-3A Leveler.#{PLUGIN_EXT}/
     plugs << "UAD Teletronix LA-3A#{PLUGIN_APPEND}.#{PLUGIN_EXT}/"
   # New Plugs
   # ---------
