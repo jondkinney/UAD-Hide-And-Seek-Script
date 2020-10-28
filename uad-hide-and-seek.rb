@@ -516,6 +516,12 @@ def plug_case_statement(plug)
     plugs << "UAD bx_masterdesk Classic#{PLUGIN_APPEND}.#{PLUGIN_EXT}/" unless PLUGIN_APPEND == '(m)'
   when /UAD bx_masterdesk.#{PLUGIN_EXT}/
     plugs << "UAD bx_masterdesk#{PLUGIN_APPEND}.#{PLUGIN_EXT}/" unless PLUGIN_APPEND == '(m)'
+  when /UAD Neve 1084 Preamp and EQ.#{PLUGIN_EXT}/
+    plugs << "UAD Neve 1084#{PLUGIN_APPEND}.#{PLUGIN_EXT}/"
+  when /UAD Teletronix LA-3A Audio Leveler.#{PLUGIN_EXT}/
+    plugs << "UAD Teletronix LA-3A#{PLUGIN_APPEND}.#{PLUGIN_EXT}/"
+  when /UAD Teletronix LA-3A Leveler.#{PLUGIN_EXT}/
+    plugs << "UAD Teletronix LA-3A#{PLUGIN_APPEND}.#{PLUGIN_EXT}/"
   # New Plugs
   # ---------
   # when /UAD Plugin Name From UADSystemProfile.txt file.#{PLUGIN_EXT}/
