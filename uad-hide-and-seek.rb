@@ -452,9 +452,6 @@ def plug_case_statement(plug)
     plugs << "UAD Manley Massive Passive MST#{PLUGIN_APPEND}.#{PLUGIN_EXT}"
   when /UAD Marshall Plexi Classic Amplifier.#{PLUGIN_EXT}/
     plugs << "UAD Marshall Plexi Classic#{PLUGIN_APPEND}.#{PLUGIN_EXT}"
-  when /UAD Neve 33609 Compressor.#{PLUGIN_EXT}/
-    plugs << "UAD Neve 33609#{PLUGIN_APPEND}.#{PLUGIN_EXT}"
-    plugs << "UAD Neve 33609SE#{PLUGIN_APPEND}.#{PLUGIN_EXT}"
   when /UAD Ocean Way Studios Room Modeler.#{PLUGIN_EXT}/
     plugs << "UAD Ocean Way Studios#{PLUGIN_APPEND}.#{PLUGIN_EXT}"
   when /UAD Precision K-Stereo Ambience Recovery.#{PLUGIN_EXT}/
@@ -522,6 +519,14 @@ def plug_case_statement(plug)
     plugs << "UAD Teletronix LA-3A#{PLUGIN_APPEND}.#{PLUGIN_EXT}/"
   when /UAD Teletronix LA-3A Leveler.#{PLUGIN_EXT}/
     plugs << "UAD Teletronix LA-3A#{PLUGIN_APPEND}.#{PLUGIN_EXT}/"
+  when /UAD Neve 33609 Stereo Limiter Compressor.#{PLUGIN_EXT}/
+    plugs << "UAD Neve 33609 C#{PLUGIN_APPEND}.#{PLUGIN_EXT}"
+    plugs << "UAD Neve 33609SE#{PLUGIN_APPEND}.#{PLUGIN_EXT}"
+  when /UAD Neve Dynamics Collection.#{PLUGIN_EXT}/
+    plugs << "UAD Neve 33609 C#{PLUGIN_APPEND}.#{PLUGIN_EXT}"
+    plugs << "UAD Neve 33609SE#{PLUGIN_APPEND}.#{PLUGIN_EXT}"
+    plugs << "UAD Neve 2254 E Dual#{PLUGIN_APPEND}.#{PLUGIN_EXT}"
+    plugs << "UAD Neve 2254 E#{PLUGIN_APPEND}.#{PLUGIN_EXT}"
   # New Plugs
   # ---------
   # when /UAD Plugin Name From UADSystemProfile.txt file.#{PLUGIN_EXT}/
