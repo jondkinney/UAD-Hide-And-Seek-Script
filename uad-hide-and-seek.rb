@@ -27,6 +27,44 @@ class Array
   end
 end
 
+UAD_SOFTWARE_VERSION = '9.13.0'
+
+user_dir = Etc.getlogin
+uad_system_profile_file = "/Users/#{user_dir}/Desktop/UADSystemProfile.txt"
+
+puts "!!!!! Reading UAD System Profile file from: #{uad_system_profile_file}..."
+
+unless File.file?(uad_system_profile_file)
+  puts ">>>>> 'UADSystemProfile.txt' file not found on desktop."
+
+  msg = %(>>>>> Please click 'Save Detailed System Profile' from the UAD
+  Control Panel app 'System Info' tab and save the file to your desktop, then
+  re-run this script.).squish
+  puts msg
+
+  exit
+end
+
+# Open UADSystemProfile.txt file, read it into memory, and close the file
+file_handle = open uad_system_profile_file
+content = file_handle.read
+file_handle.close
+
+# Check UAD Software version from UAD System Profile file and check it matches this script.
+# Plugin names and exceptions can change in UAD Software versions so the UAD System Profile version should match this script.
+content.each_line do |line|
+  if line =~ /UAD Software Release Version/
+    uad_version = line.split(":").last.strip
+    puts "UAD Software Version: #{uad_version}"
+    if uad_version != UAD_SOFTWARE_VERSION
+      msg = %(>>>>> UAD Software Version #{uad_version} from UAD System Profile does not match the version this script is written for (#{UAD_SOFTWARE_VERSION}).).squish
+      puts msg
+      
+      exit
+    end
+  end
+end
+
 puts "Which plugins do you want to alter? Type the number and press enter."
 puts "1. UAD Console"
 puts "2. Pro Tools AAX"
@@ -125,22 +163,6 @@ rescue Errno::EACCES
   exit
 end
 
-user_dir = Etc.getlogin
-uad_system_profile_file = "/Users/#{user_dir}/Desktop/UADSystemProfile.txt"
-
-puts "!!!!! Reading UAD System Profile file from: #{uad_system_profile_file}..."
-
-unless File.file?(uad_system_profile_file)
-  puts ">>>>> 'UADSystemProfile.txt' file not found on desktop."
-
-  msg = %(>>>>> Please click 'Save Detailed System Profile' from the UAD
-  Control Panel app 'System Info' tab and save the file to your desktop, then
-  re-run this script.).squish
-  puts msg
-
-  exit
-end
-
 puts ''
 msg = %(If this is your first time using this script OR you upgraded to a new
 version of the UAD Software and it contains new plugins, it's recommended to
@@ -170,11 +192,6 @@ if TESTING
 else
   puts ">>>>> Skipping 'Move All' test."
 end
-
-# Open UADSystemProfile.txt file, read it into memory, and close the file
-file_handle = open uad_system_profile_file
-content = file_handle.read
-file_handle.close
 
 plugin_array_with_authorizations =
   content
