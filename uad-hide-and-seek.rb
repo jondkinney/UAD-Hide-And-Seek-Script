@@ -352,6 +352,10 @@ unless TESTING
   puts ''
 end
 
+if ARGV.include? '--auth-all'
+  authorized_plugs = all_plugs
+end
+
 # Move explicitly authorized plugins back to the default plugin location. It's
 # important to move all plugins out of the default folder, then move only the
 # authorized plugins back in. This is because if you own a one-off plugin but
@@ -364,7 +368,7 @@ end
 
 if !TESTING || SKIP_MOVE
   puts ''
-  puts "#{authorized_plugs.count} plugins are authorized for use."
+  puts "#{authorized_plugs.count} plugins were authorized for use."
 end
 
 if TESTING && !SKIP_MOVE
