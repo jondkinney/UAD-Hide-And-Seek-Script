@@ -35,7 +35,9 @@ Studio One has the ability to manage plugins and hide them similarly to the UAD 
 ## Downloading the script
 
 1. Download a zip of this repo to your Downloads folder. See below.
-   ![image](https://user-images.githubusercontent.com/4521/69011535-06c76600-0931-11ea-8d8b-1df3e5faa342.png)
+   ![CleanShot 2024-04-11 at 01 23 44@2x](https://github.com/jondkinney/UAD-Hide-And-Seek-Script/assets/4521/7c7faa67-8bd8-42ee-b8cd-9137fc0577b3)
+
+
 
 1. With the mouse, double click the "UAD-Hide-And-Seek-Script-master.zip" file in your Downloads folder to unzip it.
 
