@@ -44,7 +44,7 @@ Studio One has the ability to manage plugins and hide them similarly to the UAD 
 1. Open `Terminal.app` from the `/Applications/Utilities` folder.
 1. At the terminal, change into the unzipped folder called `UAD-Hide-And-Seek-Script-master` by executing the following command:
 
-     cd ~/Downloads/UAD-Hide-And-Seek-Script-master
+       cd ~/Downloads/UAD-Hide-And-Seek-Script-master
 
 1. Now type: `sudo ruby uad-hide` and press the `tab` key.
 1. If the terminal fills in the rest of the file name so the screen is showing `sudo ruby uad-hide-and-seek.rb` at the command prompt, then you're golden.
