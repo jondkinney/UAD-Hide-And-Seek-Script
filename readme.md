@@ -91,4 +91,6 @@ Note: if you're confident that the script is going to work fully and move the pl
 
 If you think something got messed up, you can always re-install the UAD software entirely to restore the plugin folders then try to run this script again. If you're stuck, file an issue on this repo and I'll try to help.
 
-<https://help.uaudio.com/hc/en-us/articles/206337276-Plug-In-Collection-Bundle-Pricing-Explained>
+### Plugin Collections
+
+One thing that can be tricky to account for is when someone has a plugin authorization as a part of a plugin collection versus purchasing a plugin directly. I think I've accounted for all of the plugin collections, but if not, they're relatively easy to add in the new JSON plugin dictionary. Here's a small sampling of some of the [collections that UA offers](https://help.uaudio.com/hc/en-us/articles/206337276-Plug-In-Collection-Bundle-Pricing-Explained). If you see some plugins being skipped because they were already moved, it's likely becauase you purchased a plugin that is also in a bundle you purchased, or vice versa.
