@@ -6,7 +6,7 @@
 
 I wrote this script initially to hide the UAD Console plugins from my file system so that when using the Softube Console 1 hardware and loading UAD plugins into the channel strips through [Apollo Central](https://www.softube.com/apollo#/) mode, I could select from just the list that I own. Even when you [hide unauthorized plugins](https://help.uaudio.com/hc/en-us/articles/210897963-Hiding-Plug-Ins-in-Console-2-0) in the UAD Console settings, the Softube Console 1 interface still shows them all since it seems to look at the plugin folder directly, not the hidden settings in the UAD Console.
 
-![image](https://user-images.githubusercontent.com/4521/69012697-3af55380-093e-11ea-9409-cdfabaade3b5.png)
+![CleanShot 2024-04-11 at 01 08 23@2x](https://github.com/jondkinney/UAD-Hide-And-Seek-Script/assets/4521/eda1a105-f8f2-46ad-a5dc-6a590c1a8e86)
 This screenshot is only showing my authorized plugins!
 
 #### VST, AAX, AU
