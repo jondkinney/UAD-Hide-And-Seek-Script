@@ -75,15 +75,17 @@ The script will try to read the `UADSystemProfile.txt` file from your desktop. I
 
 If the `UADSystemProfile.txt` file can be read successfully, then the script asks if you want to try to test moving all of your plugins to the relevant 'Unused' folders that the script creates. I highly recommend opening up the [plugin folders](https://help.uaudio.com/hc/en-us/articles/210216306-Default-Install-Locations-for-UAD-Plug-Ins) in finder, and then trying this test. The script will attempt to go through the entire `UADSystemProfile.txt` file parsing the name out of each plugin and moving ALL of them to the relevant 'Unused' folders.
 
-If this succeeds, the script will show a list of between 1 to 5 UAD plugins that should still remain in the main plugin folders. Open up these folders and compare the list shown in the terminal with the plugins in the main folders to ensure all the non-system plugins were properly moved. Plugins like the `UAD Console Recall.vst` and `UAD CS-1.vst` aren't authorized or not (and aren't listed in the `UADSystemProfile.txt` file, so they aren't ever moved by this script), they are just part of the UAD system and are required to be in the main plugin folder for things to work properly.
+If this succeeds, the script will show a list of between 1 to 5 UAD plugins that should still remain in the main plugin folders. Open up these folders and compare the list shown in the terminal with the plugins in the main folders to ensure all the non-system plugins were properly moved. Plugins like the `UAD Console Recall.vst` and `UAD CS-1.vst` aren't authorized or not (and aren't listed in the `UADSystemProfile.txt` file, so they aren't ever moved by this script), they are just part of the UAD system and are required to be in the main plugin folders for things to work properly.
 
-**Note:** If you have extra non-system plugins in the main folder that look like actual musical UAD plugins (the newly released Avalon 737, for example), then this script may need to be updated to account for newly released plugins. The prompts attempt to help you alter the script yourself to accomodate those new releases. Alternatively you can create an issue on this repo and I can take a look at updating the script.
+**Note:** If you have extra non-system plugins in the main folder that look like actual musical UAD plugins (like the newly released "UAD Auto-Tune Realtime X", for example), then this script may need to be updated to account for newly released plugins. The prompts attempt to help you alter the script yourself to accomodate those new releases. Alternatively you can create an issue on this repo and I can take a look at updating the script.
 
 ### Doing the actual move
 
-Once the 'Move All' test is successful and your main plugin directory is left with only UAD system plugins, re-run the script skipping the 'Move All' test (by typing 'skip' without quotes and pressing enter) to move your authorized plugins back to the main directories.
+Once the 'Move All' test is successful and your main plugin directory is left with only UAD system plugins, re-run the script skipping the 'Move All' test (by typing 'skip' without quotes and pressing enter when prompted) to move your authorized plugins back to their main directories.
 
 Re-run the script for each plugin type you want to alter!
+
+Note: if you're confident that the script is going to work fully and move the plugins to the "Unused" folders, then back into their proper places (for example when repeating the script for more than one plugin extension type), you answer 'n' when prompted to run the 'Move All' test and the full process will complete for that plugin extension type without stopping in between moving the plugins to the "Unused" folder and back to their proper directories.
 
 ### Troubleshooting
 
