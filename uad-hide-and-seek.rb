@@ -36,8 +36,9 @@ puts 'Which plugins do you want to alter? Type the number and press enter.'
 puts '1. UAD Console'
 puts '2. Pro Tools AAX'
 puts '3. VST Plugins'
-puts '4. VST3 Plugins'
-puts '5. Audio Units Plugins'
+puts '4. VST Plugins (mono)'
+puts '5. VST3 Plugins'
+puts '6. Audio Units Plugins'
 # puts '5. All'
 
 ALTER_ALL = false
@@ -47,6 +48,7 @@ when /1/ # UAD Console
   PARENT_PATH = '/Library/Application Support/Universal Audio'
   PLUGIN_DIR = 'UAD-2 Powered Plug-Ins'
   PLUGIN_EXT = 'vst'
+  PLUGIN_APPEND = ''
   UNUSED_PLUGIN_DIR = "#{PLUGIN_DIR} Unused"
   SKIP_PLUGINS = []
   REMAINING_FILE_LIST = %(
@@ -60,6 +62,7 @@ when /2/ # Pro tools AAX
   PARENT_PATH = '/Library/Application Support/Avid/Audio'
   PLUGIN_DIR = 'Plug-Ins/Universal Audio'
   PLUGIN_EXT = 'aaxplugin'
+  PLUGIN_APPEND = ''
   UNUSED_PLUGIN_DIR = 'Unused'
   SKIP_PLUGINS = []
   REMAINING_FILE_LIST = %(
@@ -70,23 +73,49 @@ when /3/ # VST Plugins
   PARENT_PATH = '/Library/Audio'
   PLUGIN_DIR = 'Plug-Ins/VST/Universal Audio'
   PLUGIN_EXT = 'vst'
+  PLUGIN_APPEND = ''
   UNUSED_PLUGIN_DIR = 'Plugins Unused/VST/Universal Audio'
   SKIP_PLUGINS = []
   REMAINING_FILE_LIST = %(
     UAD Console Recall.vst
     UAD CS-1.vst
   ).to_multi_list
-when /4/ # VST3 Plugins
+when /4/ # VST Plugins (mono)
+  PARENT_PATH = '/Library/Audio'
+  PLUGIN_DIR = 'Plug-Ins/VST/Universal Audio/UAD Mono'
+  PLUGIN_EXT = 'vst'
+  PLUGIN_APPEND = '(m)'
+  UNUSED_PLUGIN_DIR = 'Plugins Unused/VST/Universal Audio/UAD Mono'
+  SKIP_PLUGINS = %(
+    UAD Auto-Tune Realtime X(m).vst
+    UAD bx_masterdesk Classic(m).vst
+    UAD bx_masterdesk(m).vst
+    UAD Putnam Mic Collection(m).vst
+    UAD Putnam Mic Collection 180(m).vst
+    UAD Ocean Way Mic Collection(m).vst
+    UAD Ocean Way Mic Collection 180(m).vst
+    UAD Sphere Mic Collection(m).vst
+    UAD Sphere Mic Collection 180(m).vst
+    UAD bx_digital V3(m).vst
+    UAD Dangerous BAX EQ Master(m).vst
+    UAD bx_digital V2(m).vst
+  ).to_multi_list
+  REMAINING_FILE_LIST = %(
+    UAD CS-1(m).vst
+  ).to_multi_list
+when /5/ # VST3 Plugins
   PARENT_PATH = '/Library/Audio'
   PLUGIN_DIR = 'Plug-Ins/VST3/Universal Audio'
   PLUGIN_EXT = 'vst3'
   UNUSED_PLUGIN_DIR = 'Plugins Unused/VST3/Universal Audio'
-  SKIP_PLUGINS = ['UAD Antares Auto-Tune Realtime.vst3']
+  SKIP_PLUGINS = %(
+    UAD Antares Auto-Tune Realtime.vst3
+  ).to_multi_list
   REMAINING_FILE_LIST = %(
     UAD Console Recall.vst
     UAD CS-1.vst
   ).to_multi_list
-when /5/ # Audio Units
+when /6/ # Audio Units
   PARENT_PATH = '/Library/Audio'
   PLUGIN_DIR = 'Plug-Ins/Components'
   PLUGIN_EXT = 'component'
@@ -96,7 +125,7 @@ when /5/ # Audio Units
     Console Recall.component
     UAD CS-1.component
   ).to_multi_list
-when /5/
+when /7/
   ALTER_ALL = true #placeholder for future functionality
   puts 'Not yet implemented. Please run the script for each folder set you want to alter.'
   exit
@@ -222,7 +251,7 @@ def move_plugs(plugs:, move_to:)
 
   plugs.each do |plug|
     if SKIP_PLUGINS.include?(plug)
-      puts "#{plug.fix(55, '.')} irrelevant plugin authorization for #{PLUGIN_EXT} file type#{"".fix(50,'.')}Skipping"
+      puts "#{plug.fix(55, '.')} irrelevant plugin authorization for #{PLUGIN_EXT} #{PLUGIN_APPEND} file type#{"".fix(82,'.')}Skipping"
       next
     end
 
@@ -292,15 +321,15 @@ def plug_case_statement(plug)
     if name.is_a?(Array)
       # If the mapping is an array, iterate through each name
       name.each do |n|
-        plugs << "#{n}.#{PLUGIN_EXT}"
+        plugs << "#{n}#{PLUGIN_APPEND}.#{PLUGIN_EXT}"
       end
     else
       # Single name string
-      plugs << "#{name}.#{PLUGIN_EXT}"
+      plugs << "#{name}#{PLUGIN_APPEND}.#{PLUGIN_EXT}"
     end
   else
     # No direct match found, handle according to your logic
-    plugs << "#{plug}.#{PLUGIN_EXT}"
+    plugs << "#{plug}#{PLUGIN_APPEND}.#{PLUGIN_EXT}"
   end
 
   plugs
@@ -340,7 +369,7 @@ end
 
 if TESTING && !SKIP_MOVE
   puts ''
-  puts "Finished moving all KNOWN '#{PLUGIN_EXT.upcase}' plugins to '#{UNUSED_PLUGIN_PATH}'"
+  puts "Finished moving all KNOWN '#{PLUGIN_EXT.upcase} #{PLUGIN_APPEND}' plugins to '#{UNUSED_PLUGIN_PATH}'"
 
   puts ''
   puts "Your '#{PLUGIN_PATH}' folders should ONLY contain the following required UAD system plugins:"
