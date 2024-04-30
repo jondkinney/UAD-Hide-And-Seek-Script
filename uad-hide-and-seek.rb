@@ -107,6 +107,7 @@ when /5/ # VST3 Plugins
   PARENT_PATH = '/Library/Audio'
   PLUGIN_DIR = 'Plug-Ins/VST3/Universal Audio'
   PLUGIN_EXT = 'vst3'
+  PLUGIN_APPEND = ''
   UNUSED_PLUGIN_DIR = 'Plugins Unused/VST3/Universal Audio'
   SKIP_PLUGINS = %(
     UAD Antares Auto-Tune Realtime.vst3
@@ -119,6 +120,7 @@ when /6/ # Audio Units
   PARENT_PATH = '/Library/Audio'
   PLUGIN_DIR = 'Plug-Ins/Components'
   PLUGIN_EXT = 'component'
+  PLUGIN_APPEND = ''
   UNUSED_PLUGIN_DIR = 'Plugins Unused/Components'
   SKIP_PLUGINS = []
   REMAINING_FILE_LIST = %(
